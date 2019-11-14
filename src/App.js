@@ -1,44 +1,26 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect'
 import './App.css';
 
 import HomePage from './pages/homepage/HomePage';
 import ShopPage from './pages/shoppage/ShopPage';
 import SignInAndSignUpPage from './pages/signin-and-signup-page/SignInAndSignUpPage';
 import CheckoutPage from './pages/checkout-page/CheckoutPage'
-
-import Header from './components/header/Header';
-import { auth, createUserProfileDocument } from './firebase/firebase-util';
-import setCurrentUser from './redux/user/userActions';
+import { checkUserSession } from './redux/user/userActions';
 import { currentUserSelector } from './redux/user/userSelectors';
+import Header from './components/header/Header';
 
 class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
   componentDidMount(){
-    const { setCurrentUser } = this.props
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapshot) => {
-          setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data()
-          })
-        })
-      } else {
-          setCurrentUser(userAuth)
-      }
-    })
+    const { checkUserSession } = this.props;
+    checkUserSession()
   }
-
-  componentWillUnmount(){
-    this.unsubscribeFromAuth();
-  }
-
+  
   render() {
     return (
       <div>
@@ -58,11 +40,11 @@ class App extends React.Component {
 }
 
 const matchStateToProps = createStructuredSelector({
-  currentUser: currentUserSelector,
+  currentUser: currentUserSelector
 })
 
-const matchDispatchToProps=dispatch=> ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
+const matchDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
 })
 
-export default connect(matchStateToProps ,matchDispatchToProps)(App);
+export default connect(matchStateToProps,matchDispatchToProps)(App);
