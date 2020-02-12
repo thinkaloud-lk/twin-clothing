@@ -1,3 +1,30 @@
+# Twin Clothing
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This is an e-commerce web application derived from Andrei Neagoei and Yihua Zhang's Complete React Developer course.
+
+### Tech
+
+  Twin Clothing  uses a number of open source projects to work properly:
+
+* [ReactJs](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [firestore](https://firebase.google.com/products/firestore/) -  NoSQL document database that lets you easily store, sync, and query data
+* [React Router](https://reacttraining.com/react-router/) - A collection of navigational components
+* [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps
+* [Redux-saga](https://redux-saga.js.org/)- is a library that aims to make application side effects 
+
+### Installation
+
+```sh
+$ clone https://github.com/thinkaloud-lk/twin-clothing 
+$ npm install
+$ yarn start
+```
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
